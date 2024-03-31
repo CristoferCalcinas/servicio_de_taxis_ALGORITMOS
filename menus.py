@@ -59,9 +59,9 @@ class Menu:
     def obtener_opcion_menu_chofer(self):
         opciones = [
             "  1. Lista de Solicitudes de Viaje Pendientes",
-            "  2. Cancelar Viaje",
-            "  3. Registro de Viaje",
-            "  4. Mostrar Viajes",
+            "  2. Cambiar de Estado",
+            "  3. Aceptar/Rechazar Solicitud",
+            "  4. Ver Choferes Disponibles",
             "  5. Salir",
         ]
         os.system("cls" if os.name == "nt" else "clear")
