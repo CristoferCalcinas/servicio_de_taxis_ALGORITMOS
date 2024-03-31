@@ -16,10 +16,17 @@ class SistemaTaxi:
         return origen_viaje, destino_viaje
 
     def ingresar_como_usuario(self):
-        nombre_usuario = input("Ingrese su nombre para continuar\n=>")
-        if not self.__usuarios or nombre_usuario not in [
-            usuario.nombre for usuario in self.__usuarios
-        ]:
+        while True:
+            nombre_usuario = input("Ingrese su nombre para continuar\n=>")
+            for i, usuario in enumerate(self.__usuarios):
+                if usuario.nombre == nombre_usuario:
+                    print(
+                        f"Bienvenido {nombre_usuario}, posición en la lista_enlazada: {i+1}"
+                    )
+                    input("Presione Enter para continuar...")
+                    break
+
+            print("\n\n")
             while True:
                 opcion_usuario = Menu().obtener_opcion_menu_usuario()
                 print("\n\n")
@@ -38,21 +45,24 @@ class SistemaTaxi:
                     input("Presione Enter para continuar...")
                 elif opcion_usuario == "2":
                     # Cancelar un Viaje
-                    pass
+                    nueva_lista_solicitudes = list(
+                        filter(
+                            lambda x: x.usuario.nombre != nombre_usuario,
+                            self.__solicitudes,
+                        )
+                    )
+                    if len(nueva_lista_solicitudes) == len(self.__solicitudes):
+                        print("No hay solicitudes de viaje pendientes.")
+                    else:
+                        self.__solicitudes = nueva_lista_solicitudes
+                        print("Viaje cancelado con éxito.")
+
                 elif opcion_usuario == "3":
                     pass
                 elif opcion_usuario == "4":
                     pass
                 elif opcion_usuario == "5":
                     return
-        else:
-            for i, usuario in enumerate(self.__usuarios):
-                if usuario.nombre == nombre_usuario:
-                    print(
-                        f"Bienvenido {nombre_usuario}, posición en la lista_enlazada: {i+1}"
-                    )
-                    break
-            input("Presione Enter para continuar...")
 
     def ingresar_como_chofer(self):
         opcion_chofer = Menu().obtener_opcion_menu_chofer()

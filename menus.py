@@ -24,14 +24,11 @@ class Menu:
         self.draw_menu(opciones, "Menú Inicial")
 
         opcion_elegida = input("\nIngrese el número de la opción deseada: ")
-
-        if len(opciones) >= int(opcion_elegida) > 0:
-            return opcion_elegida
-        else:
+        while not opcion_elegida.isdigit() and len(opciones) >= int(opcion_elegida) > 0:
             print("La opción ingresada no es válida.")
-            return None
-
-        # return opcion_elegida if 0 < int(opcion_elegida) <= len(opciones) else None
+            print("Por favor, ingrese solo números.")
+            opcion_elegida = input("\nIngrese el número de la opción deseada: ")
+        return opcion_elegida
 
     def obtener_opcion_menu_usuario(self):
         opciones = [
@@ -46,7 +43,7 @@ class Menu:
 
         opcion_elegida = input("\nIngrese el número de la opción deseada: ")
 
-        if len(opciones) >= int(opcion_elegida) > 0:
+        if opcion_elegida and len(opciones) >= int(opcion_elegida) > 0:
             return opcion_elegida
         else:
             print("La opción ingresada no es válida.")
