@@ -23,11 +23,18 @@ class Menu:
         os.system("cls" if os.name == "nt" else "clear")
         self.draw_menu(opciones, "Menú Inicial")
 
-        opcion_elegida = input("\nIngrese el número de la opción deseada: ")
-        while not opcion_elegida.isdigit() and len(opciones) >= int(opcion_elegida) > 0:
-            print("La opción ingresada no es válida.")
-            print("Por favor, ingrese solo números.")
+        opcion_elegida = 0
+        while True:
             opcion_elegida = input("\nIngrese el número de la opción deseada: ")
+
+            if opcion_elegida.isdigit() and 0 < int(opcion_elegida) <= len(opciones):
+                break
+            elif opcion_elegida.strip() == "":
+                print("No ha ingresado nada. Por favor, ingrese un número.")
+            else:
+                print(
+                    "La opción ingresada no es válida. Por favor, ingrese solo números."
+                )
         return opcion_elegida
 
     def obtener_opcion_menu_usuario(self):
@@ -35,7 +42,7 @@ class Menu:
             "  1. Solicitar un Viaje",
             "  2. Cancelar Viaje",
             "  3. Registro de Viaje",
-            "  4. Mostrar Viajes",
+            "  4. Mostrar Viaje",
             "  5. Salir",
         ]
         os.system("cls" if os.name == "nt" else "clear")

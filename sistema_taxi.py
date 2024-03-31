@@ -18,11 +18,10 @@ class SistemaTaxi:
     def ingresar_como_usuario(self):
         while True:
             nombre_usuario = input("Ingrese su nombre para continuar\n=>")
-            for i, usuario in enumerate(self.__usuarios):
-                if usuario.nombre == nombre_usuario:
-                    print(
-                        f"Bienvenido {nombre_usuario}, posición en la lista_enlazada: {i+1}"
-                    )
+            for i, solicitud in enumerate(self.__solicitudes):
+                if solicitud.obtener_nombre_usuario() == nombre_usuario:
+                    print(f"Su Ppsición en la lista_enlazada: {i+1}")
+                    print("Ya tiene una solicitud de viaje pendiente.")
                     input("Presione Enter para continuar...")
                     break
 
@@ -56,11 +55,29 @@ class SistemaTaxi:
                     else:
                         self.__solicitudes = nueva_lista_solicitudes
                         print("Viaje cancelado con éxito.")
+                        input("Presione Enter para continuar...")
+                        return
 
                 elif opcion_usuario == "3":
-                    pass
+                    # Registro de Viajes de un Usuario
+                    for i, usuario in enumerate(self.__usuarios):
+                        if usuario.nombre == nombre_usuario:
+                            print(
+                                f"Usuario: {usuario.nombre} - Posición en la lista_enlazada: {i+1}"
+                            )
+                    input("Presione Enter para continuar...")
+                    
                 elif opcion_usuario == "4":
-                    pass
+                    # Mostrar Viajes
+                    for solicitud in self.__solicitudes:
+                        if solicitud.obtener_nombre_usuario() == nombre_usuario:
+                            print("\n")
+                            print("*" * 50)
+                            print("\tUsuario ~ " + solicitud.obtener_nombre_usuario())
+                            print("\tOrigen ~ " + solicitud.origen)
+                            print("\tDestino ~ " + solicitud.destino)
+                            print("*" * 50, "\n")
+                    input("Presione Enter para continuar...")
                 elif opcion_usuario == "5":
                     return
 
