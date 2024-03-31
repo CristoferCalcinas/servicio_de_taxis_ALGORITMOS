@@ -28,6 +28,7 @@ class SistemaTaxi:
                     opcion_usuario = Menu().obtener_opcion_menu_usuario()
 
                 if opcion_usuario == "1":
+                    # Solicitar un Viaje
                     origen_viaje, destino_viaje = self.pedir_origen_destino()
                     usuario = Usuario(nombre_usuario)
                     self.__usuarios.append(usuario)
@@ -36,6 +37,7 @@ class SistemaTaxi:
                     print("\nSolicitud de viaje realizada con éxito.")
                     input("Presione Enter para continuar...")
                 elif opcion_usuario == "2":
+                    # Cancelar un Viaje
                     pass
                 elif opcion_usuario == "3":
                     pass
@@ -56,6 +58,11 @@ class SistemaTaxi:
         opcion_chofer = Menu().obtener_opcion_menu_chofer()
         print("\n\n")
         if opcion_chofer == "1":
+            if not self.__solicitudes:
+                print("No hay solicitudes de viaje pendientes.")
+                input("Presione Enter para salir...")
+                return
+
             print("Solicitudes de viaje pendientes: ")
             for solicitud in self.__solicitudes:
                 print("\n")
