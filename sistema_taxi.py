@@ -145,34 +145,41 @@ class SistemaTaxi:
         while True:
             opcion_administrador = Menu().obtener_opcion_menu_administrador()
             print("\n\n")
-            while opcion_administrador not in ["1", "2", "3", "4", "5"]:
+            while opcion_administrador not in ["1", "2", "3", "4"]:
                 print("La opción ingresada no es válida.")
                 opcion_administrador = Menu().obtener_opcion_menu_administrador()
             if opcion_administrador == "1":
-                print("Choferes Disponibles")
+                print("\nChoferes Disponibles")
+                print("-" * 50)
                 for i, chofer in enumerate(self.__choferes):
                     if chofer.estado == "Disponible":
-                        print(f"{i+1}. {chofer.nombre} - {chofer.estado}")
-                print("Choferes No Disponibles")
+                        print(f"*\t{i+1}. {chofer.nombre} - {chofer.estado} \t*")
+                print("-" * 50)
+                print("\nChoferes No Disponibles")
+                print("-" * 50)
                 for i, chofer in enumerate(self.__choferes):
                     if chofer.estado == "Ocupado":
-                        print(f"{i+1}. {chofer.nombre} - {chofer.estado}")
-                input("Presione Enter para continuar...")
+                        print(f"*\t{i+1}. {chofer.nombre} - {chofer.estado} \t*")
+                print("-" * 50)
+                input("\nPresione Enter para continuar...")
 
             elif opcion_administrador == "2":
-                print("Solicitudes de Viaje")
+                print("\t\tSolicitudes de Viaje\n")
+                if not self.__solicitudes:
+                    print("\tNo hay solicitudes de viaje pendientes.\n")
+                    input("\nPresione Enter para continuar...")
                 for i, solicitud in enumerate(self.__solicitudes):
                     print(
                         f"{i+1}. {solicitud.obtener_nombre_usuario()} # {solicitud.origen} - {solicitud.destino} "
                     )
+
             elif opcion_administrador == "3":
                 print("Usuarios Registrados")
                 for i, usuario in enumerate(self.__usuarios):
-                    print(f"{i+1}. {usuario.nombre}")
+                    print(f"\t\t{i+1}. {usuario.nombre}")
                 input("Presione Enter para continuar...")
             elif opcion_administrador == "4":
                 return
             else:
                 print("La opción ingresada no es válida.")
                 input("Presione Enter para continuar...")
-                return
