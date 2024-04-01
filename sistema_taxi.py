@@ -174,10 +174,10 @@ class SistemaTaxi:
                     )
 
             elif opcion_administrador == "3":
-                print("Usuarios Registrados")
+                print("Usuarios Registrados\n")
                 for i, usuario in enumerate(self.__usuarios):
-                    print(f"\t\t{i+1}. {usuario.nombre}")
-                input("Presione Enter para continuar...")
+                    print(f"\t  {i+1}. {usuario.nombre}")
+                input("\nPresione Enter para continuar...")
             elif opcion_administrador == "4":
                 return
             else:
