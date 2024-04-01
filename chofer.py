@@ -5,7 +5,7 @@ class Chofer:
         self.estado: str = "Disponible"
 
     def cambiar_estado(self):
-        return "Ocupado" if self.estado == "Disponible" else "Disponible"
+        self.estado = "Ocupado" if self.estado == "Disponible" else "Disponible"
 
     def identificar_chofer(self, identificacion: int):
         return self.identificacion == identificacion

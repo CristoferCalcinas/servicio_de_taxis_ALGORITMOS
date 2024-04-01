@@ -1,13 +1,14 @@
-from viaje import Viaje
-from menus import Menu
-from usuario import Usuario
 from chofer import Chofer
+from menus import Menu
+from semilla import Semilla
+from usuario import Usuario
+from viaje import Viaje
 
 
 class SistemaTaxi:
     def __init__(self):
-        self.__usuarios = []
-        self.__choferes = []
+        self.__usuarios = Semilla().cargar_usuarios()
+        self.__choferes = Semilla().cargar_choferes()
         self.__solicitudes = []
 
     def pedir_origen_destino(self):

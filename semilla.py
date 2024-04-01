@@ -14,8 +14,10 @@ class Semilla:
     def cargar_choferes(self):
         primer_chofer = Chofer("Carlos", 4545)
         segundo_chofer = Chofer("Pablo", 5200)
+        segundo_chofer.cambiar_estado()
         tercer_chofer = Chofer("Lucas", 1000)
         cuarto_chofer = Chofer("Martin", 7880)
+        cuarto_chofer.cambiar_estado()
         quinto_chofer = Chofer("Mateo", 2020)
         return [
             primer_chofer,
