@@ -9,6 +9,3 @@ class Chofer:
 
     def identificar_chofer(self, identificacion: int):
         return self.identificacion == identificacion
-
-    def ver_solicitudes(self):
-        pass

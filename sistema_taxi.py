@@ -1,7 +1,7 @@
-import os
 from viaje import Viaje
 from menus import Menu
 from usuario import Usuario
+from chofer import Chofer
 
 
 class SistemaTaxi:
@@ -66,7 +66,7 @@ class SistemaTaxi:
                                 f"Usuario: {usuario.nombre} - Posición en la lista_enlazada: {i+1}"
                             )
                     input("Presione Enter para continuar...")
-                    
+
                 elif opcion_usuario == "4":
                     # Mostrar Viajes
                     for solicitud in self.__solicitudes:
@@ -82,33 +82,96 @@ class SistemaTaxi:
                     return
 
     def ingresar_como_chofer(self):
-        opcion_chofer = Menu().obtener_opcion_menu_chofer()
-        print("\n\n")
-        if opcion_chofer == "1":
-            if not self.__solicitudes:
-                print("No hay solicitudes de viaje pendientes.")
-                input("Presione Enter para salir...")
-                return
+        while True:
+            nombre_chofer = input("Ingrese su identificación para continuar\n=>")
+            if nombre_chofer not in [
+                chofer.identificacion for chofer in self.__choferes
+            ]:
+                self.__choferes.append(Chofer(nombre_chofer, nombre_chofer))
 
-            print("Solicitudes de viaje pendientes: ")
-            for solicitud in self.__solicitudes:
-                print("\n")
-                print("*" * 50)
-                print(
-                    f"*   Origen: {solicitud.origen}, Destino: {solicitud.destino}, Usuario: {solicitud.obtener_nombre_usuario()}   *"
-                )
-                print("*" * 50, "\n")
-            input("Presione Enter para continuar...")
+            print("\n\n")
+            while True:
+                opcion_chofer = Menu().obtener_opcion_menu_chofer()
+                print("\n\n")
+                while opcion_chofer not in ["1", "2", "3", "4", "5"]:
+                    print("La opción ingresada no es válida.")
+                    opcion_chofer = Menu().obtener_opcion_menu_chofer()
 
-        elif opcion_chofer == "2":
-            pass
-        elif opcion_chofer == "3":
-            pass
-        elif opcion_chofer == "4":
-            pass
-        elif opcion_chofer == "5":
-            return
+                if opcion_chofer == "1":
+                    if not self.__solicitudes:
+                        print("No hay solicitudes de viaje pendientes.")
+                        input("Presione Enter para continuar...")
+                        break
+                    print("Solicitud de viaje pendiente:")
+                    for solicitud in self.__solicitudes:
+                        print("\n")
+                        print("*" * 50)
+                        print(
+                            f"*   Origen: {solicitud.origen}, Destino: {solicitud.destino}, Usuario: {solicitud.obtener_nombre_usuario()}   *"
+                        )
+                        print("*" * 50)
+                    input("Presione Enter para continuar...")
+
+                elif opcion_chofer == "2":
+                    for chofer in self.__choferes:
+                        if chofer.identificacion == nombre_chofer:
+                            chofer.estado = chofer.cambiar_estado()
+                            print(
+                                f"{nombre_chofer}(#) Su estado ha sido cambiado a: {chofer.estado}"
+                            )
+                            input("Presione Enter para continuar...")
+                            break
+                elif opcion_chofer == "3":
+                    for i, solicitud in enumerate(self.__solicitudes):
+                        print(
+                            f"{i+1}. {solicitud.origen} - {solicitud.destino} - {solicitud.obtener_nombre_usuario()}"
+                        )
+
+                    input("Presione Enter para continuar...")
+
+                elif opcion_chofer == "4":
+                    for i, chofer in enumerate(self.__choferes):
+                        if chofer.estado == "Disponible":
+                            print(
+                                f"Chofer: {chofer.nombre} - Posición en la lista_enlazada: {i+1}"
+                            )
+                    input("Presione Enter para continuar...")
+
+                elif opcion_chofer == "5":
+                    return
 
     def ingresar_como_administrador(self):
-        opcion_administrador = Menu().obtener_opcion_menu_administrador()
-        print(opcion_administrador)
+        while True:
+            opcion_administrador = Menu().obtener_opcion_menu_administrador()
+            print("\n\n")
+            while opcion_administrador not in ["1", "2", "3", "4", "5"]:
+                print("La opción ingresada no es válida.")
+                opcion_administrador = Menu().obtener_opcion_menu_administrador()
+            if opcion_administrador == "1":
+                print("Choferes Disponibles")
+                for i, chofer in enumerate(self.__choferes):
+                    if chofer.estado == "Disponible":
+                        print(f"{i+1}. {chofer.nombre} - {chofer.estado}")
+                print("Choferes No Disponibles")
+                for i, chofer in enumerate(self.__choferes):
+                    if chofer.estado == "Ocupado":
+                        print(f"{i+1}. {chofer.nombre} - {chofer.estado}")
+                input("Presione Enter para continuar...")
+
+            elif opcion_administrador == "2":
+                print("Solicitudes de Viaje")
+                for i, solicitud in enumerate(self.__solicitudes):
+                    print(
+                        f"{i+1}. {solicitud.obtener_nombre_usuario()} # {solicitud.origen} - {solicitud.destino} "
+                    )
+            elif opcion_administrador == "3":
+                print("Usuarios Registrados")
+                for i, usuario in enumerate(self.__usuarios):
+                    print(f"{i+1}. {usuario.nombre}")
+                input("Presione Enter para continuar...")
+            elif opcion_administrador == "4":
+                return
+            else:
+                print("La opción ingresada no es válida.")
+                input("Presione Enter para continuar...")
+                return

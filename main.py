@@ -1,9 +1,5 @@
 # import time
-import os
 from menus import Menu
-from usuario import Usuario
-from chofer import Chofer
-from viaje import Viaje
 from sistema_taxi import SistemaTaxi
 
 if __name__ == "__main__":
