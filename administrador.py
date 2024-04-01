@@ -3,8 +3,9 @@ from usuario import Usuario
 
 
 class Administrador:
-    def __init__(self) -> None:
-        self.historial_general = []
+    def __init__(self, nombre_administrador: str) -> None:
+        self.nombre_administrador: str = nombre_administrador
+        self.historial_general: list = []
 
     def visualizar_cola_choferes(self):
         pass
