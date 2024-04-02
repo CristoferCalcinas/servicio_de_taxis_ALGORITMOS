@@ -13,7 +13,7 @@ class SistemaTaxiQueue:
         self.__choferes_no_disponibles = (
             QueueSemilla().cargar_choferes_no_disponibles_queue()
         )
-        self.__solicitudes = Queue()
+        self.__solicitudes = QueueSemilla().cargar_solicitudes_queue()
         self.__viajes_realizados = Queue()
 
     def pedir_origen_destino(self):
@@ -45,15 +45,21 @@ class SistemaTaxiQueue:
                     viaje = Viaje(usuario, origen_viaje, destino_viaje)
                     self.__solicitudes.enqueue(viaje)
                     print("\nSolicitud de viaje realizada con éxito.")
-                    input("Presione Enter para continuar...")
+                    input("\n\nPresione Enter para continuar...")
                 elif opcion_usuario == "2":
                     # Cancelar un Viaje
-                    if not self.__solicitudes.find(nombre_usuario):
+                    if not self.__solicitudes.find_user_for_viaje(nombre_usuario):
                         print("No hay solicitudes de viaje pendientes.\n")
                         input("Presione Enter para continuar...")
                     else:
-                        while self.__solicitudes.find(nombre_usuario):
-                            self.__solicitudes.dequeue()
+                        nueva_lista_solicitudes = Queue()
+                        current = self.__solicitudes.front
+                        while current:
+                            if current.data.usuario.nombre != nombre_usuario:
+                                nueva_lista_solicitudes.enqueue(current.data)
+                            current = current.next
+                        # reemplazamos la lista original por la nueva lista
+                        self.__solicitudes = nueva_lista_solicitudes
                         print("Viaje cancelado con éxito.\n")
                         input("Presione Enter para continuar...")
                         return
@@ -76,13 +82,13 @@ class SistemaTaxiQueue:
                             if current.data.usuario.nombre == nombre_usuario:
                                 print("*" * 50)
                                 print(
-                                    "\tUsuario ~ "
+                                    "\t\tUsuario ~ "
                                     + current.data.obtener_nombre_usuario()
                                 )
                                 print(
                                     "  Origen ~ "
                                     + current.data.origen
-                                    + "  =>"
+                                    + "\t=>"
                                     + "\tDestino ~ "
                                     + current.data.destino
                                 )
@@ -223,7 +229,9 @@ class SistemaTaxiQueue:
                 contador = 1
                 current = self.__choferes_disponibles.front
                 while current:
-                    print(f"{contador}. {current.data.nombre} ♫ {current.data.identificacion} - Disponible")
+                    print(
+                        f"{contador}. {current.data.nombre} ♫ {current.data.identificacion} - Disponible"
+                    )
                     current = current.next
                     contador += 1
                 print("-" * 50)
@@ -232,7 +240,9 @@ class SistemaTaxiQueue:
                 contador = 1
                 current = self.__choferes_no_disponibles.front
                 while current:
-                    print(f"{contador}. {current.data.nombre} ♫{current.data.identificacion} - No Disponible")
+                    print(
+                        f"{contador}. {current.data.nombre} ♫ {current.data.identificacion} - No Disponible"
+                    )
                     current = current.next
                     contador += 1
                 print("-" * 50)

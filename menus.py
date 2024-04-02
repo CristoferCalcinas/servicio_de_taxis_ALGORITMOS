@@ -41,7 +41,8 @@ class Menu:
         opciones = [
             "  1. Solicitar un Viaje",
             "  2. Cancelar Viaje",
-            "  3. Registro de Viajes",
+            # "  3. Registro de Viajes", deberiamos iterar sobre '__viajes_realizados' para mostrar los viajes realizados
+            "  3. Registro de Usuario",
             "  4. Mostrar Viaje",
             "  5. Salir",
         ]

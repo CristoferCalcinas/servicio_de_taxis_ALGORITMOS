@@ -2,6 +2,7 @@ from cola import Queue
 from usuario import Usuario
 from chofer import Chofer
 from administrador import Administrador
+from viaje import Viaje
 
 
 class QueueSemilla:
@@ -29,7 +30,7 @@ class QueueSemilla:
 
     def cargar_choferes_disponibles_queue(self):
         primer_chofer = Chofer("Carlos", 4545)
-        segundo_chofer = Chofer("Lucas", 1000)
+        segundo_chofer = Chofer("Luan", 1000)
         tercer_chofer = Chofer("Mateo", 2020)
         choferes = Queue()
         choferes.enqueue(primer_chofer)
@@ -42,3 +43,13 @@ class QueueSemilla:
         administradores = Queue()
         administradores.enqueue(primer_administrador)
         return administradores
+
+    def cargar_solicitudes_queue(self):
+        solicitudes = Queue()
+        primer_usuario = Usuario("Nico")
+        segundo_usuario = Usuario("Leon")
+        primer_viaje = Viaje(primer_usuario, "Mar Del Plata", "Mar Muerto")
+        segundo_viaje = Viaje(segundo_usuario, "Monte Carlo", "Monte Video")
+        solicitudes.enqueue(primer_viaje)
+        solicitudes.enqueue(segundo_viaje)
+        return solicitudes
