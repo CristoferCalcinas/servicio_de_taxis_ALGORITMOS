@@ -140,4 +140,18 @@ class Queue:
 
     def verify_identification_chofer(self, identification_chofer):
         # Recorre la cola para encontrar el elemento target
-        pass
+        current = self.front
+        while current:
+            if current.data.identificacion == identification_chofer:
+                return True  # Elemento encontrado
+            current = current.next
+        return False
+
+    def find_chofer(self, identification_chofer):
+        # Recorre la cola para encontrar el elemento target
+        current = self.front
+        while current:
+            if current.data.identificacion == identification_chofer:
+                return current.data  # Elemento encontrado
+            current = current.next
+        return None

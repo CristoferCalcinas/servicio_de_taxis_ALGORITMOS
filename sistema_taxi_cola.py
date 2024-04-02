@@ -100,12 +100,14 @@ class SistemaTaxiQueue:
 
     def ingresar_como_chofer(self):
         while True:
-            identificacion_chofer = input(
-                "Ingrese su identificación para continuar\nSOLO NUMEROS =>\t"
+            identificacion_chofer = int(
+                input("Ingrese su identificación para continuar\nSOLO NUMEROS =>\t")
             )
-            if self.__choferes_disponibles.find(
+            if self.__choferes_disponibles.verify_identification_chofer(
                 identificacion_chofer
-            ) or self.__choferes_no_disponibles.find(identificacion_chofer):
+            ) or self.__choferes_no_disponibles.verify_identification_chofer(
+                identificacion_chofer
+            ):
                 while True:
                     opcion_chofer = Menu().obtener_opcion_menu_chofer()
                     print("\n\n")
@@ -122,27 +124,58 @@ class SistemaTaxiQueue:
                             current = self.__solicitudes.front
                             while current:
                                 print("\n")
-                                print("*" * 50)
+                                print("*" * 75)
                                 print(
                                     f"*   Origen: {current.data.origen}, Destino: {current.data.destino}, Usuario: {current.data.obtener_nombre_usuario()}   *"
                                 )
-                                print("*" * 50)
+                                print("*" * 75)
                                 current = current.next
                             input("Presione Enter para continuar...")
                     elif opcion_chofer == "2":
                         # Cambiar de Estado
-                        if self.__choferes_disponibles.find(identificacion_chofer):
-                            self.__choferes_disponibles.dequeue()
-                            self.__choferes_no_disponibles.enqueue(
+                        if self.__choferes_disponibles.verify_identification_chofer(
+                            identificacion_chofer
+                        ):
+                            chofer = self.__choferes_disponibles.find_chofer(
                                 identificacion_chofer
                             )
+                            chofer.cambiar_estado()
+                            self.__choferes_no_disponibles.enqueue(chofer)
+                            nueva_lista_choferes_disponibles = Queue()
+                            current = self.__choferes_disponibles.front
+                            while current:
+                                if current.data.identificacion != identificacion_chofer:
+                                    nueva_lista_choferes_disponibles.enqueue(
+                                        current.data
+                                    )
+                                current = current.next
+                            self.__choferes_disponibles = (
+                                nueva_lista_choferes_disponibles
+                            )
+                            print(f"{chofer.nombre} / {chofer.identificacion}")
+                            print("=>\tEstado cambiado a No Disponible.\n")
+                            input("Presione Enter para continuar...")
+
                         else:
-                            self.__choferes_no_disponibles.dequeue()
-                            self.__choferes_disponibles.enqueue(identificacion_chofer)
-                        print(
-                            f"{identificacion_chofer} (#) Su estado ha sido cambiado a: {self.__choferes_no_disponibles.find(identificacion_chofer)}"
-                        )
-                        input("Presione Enter para continuar...")
+                            chofer = self.__choferes_no_disponibles.find_chofer(
+                                identificacion_chofer
+                            )
+                            chofer.cambiar_estado()
+                            self.__choferes_disponibles.enqueue(chofer)
+                            nueva_lista_choferes_no_disponibles = Queue()
+                            current = self.__choferes_no_disponibles.front
+                            while current:
+                                if current.data.identificacion != identificacion_chofer:
+                                    nueva_lista_choferes_no_disponibles.enqueue(
+                                        current.data
+                                    )
+                                current = current.next
+                            self.__choferes_no_disponibles = (
+                                nueva_lista_choferes_no_disponibles
+                            )
+                            print(f"{chofer.nombre} & {chofer.identificacion}")
+                            print("=>\tEstado cambiado a Disponible.\n")
+                            input("Presione Enter para continuar...")
 
                     elif opcion_chofer == "3":
                         # Aceptar/Rechazr Solicitud
@@ -200,7 +233,7 @@ class SistemaTaxiQueue:
                             current = self.__choferes_disponibles.front
                             contador = 1
                             while current:
-                                print(f"{contador}. {current.data} - Disponible")
+                                print(f"{contador}. {current.data.nombre} - Disponible")
                                 current = current.next
                                 contador += 1
                             input("Presione Enter para continuar...")

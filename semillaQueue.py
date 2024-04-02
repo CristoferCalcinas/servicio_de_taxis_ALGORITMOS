@@ -29,7 +29,7 @@ class QueueSemilla:
         return choferes
 
     def cargar_choferes_disponibles_queue(self):
-        primer_chofer = Chofer("Carlos", 4545)
+        primer_chofer = Chofer("Clark", 4545)
         segundo_chofer = Chofer("Luan", 1000)
         tercer_chofer = Chofer("Mateo", 2020)
         choferes = Queue()
