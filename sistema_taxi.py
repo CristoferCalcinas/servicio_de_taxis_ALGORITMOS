@@ -18,11 +18,11 @@ class SistemaTaxi:
 
     def ingresar_como_usuario(self):
         while True:
-            nombre_usuario = input("Ingrese su nombre para continuar\n=>")
+            nombre_usuario = input("Ingrese su nombre para continuar\n=>\t")
             for i, solicitud in enumerate(self.__solicitudes):
                 if solicitud.obtener_nombre_usuario() == nombre_usuario:
-                    print(f"Su Ppsición en la lista_enlazada: {i+1}")
-                    print("Ya tiene una solicitud de viaje pendiente.")
+                    print(f"\n\t\tSu Ppsición en la lista_enlazada: {i+1}")
+                    print("Ya tiene una solicitud de viaje pendiente.\n")
                     input("Presione Enter para continuar...")
                     break
 
@@ -52,10 +52,11 @@ class SistemaTaxi:
                         )
                     )
                     if len(nueva_lista_solicitudes) == len(self.__solicitudes):
-                        print("No hay solicitudes de viaje pendientes.")
+                        print("No hay solicitudes de viaje pendientes.\n")
+                        input("Presione Enter para continuar...")
                     else:
                         self.__solicitudes = nueva_lista_solicitudes
-                        print("Viaje cancelado con éxito.")
+                        print("Viaje cancelado con éxito.\n")
                         input("Presione Enter para continuar...")
                         return
 
@@ -64,19 +65,35 @@ class SistemaTaxi:
                     for i, usuario in enumerate(self.__usuarios):
                         if usuario.nombre == nombre_usuario:
                             print(
-                                f"Usuario: {usuario.nombre} - Posición en la lista_enlazada: {i+1}"
+                                f"Usuario: {usuario.nombre} - Posición en la lista_enlazada: {i+1}\n\n"
                             )
+
+                    if usuario.nombre not in [
+                        solicitud.obtener_nombre_usuario()
+                        for solicitud in self.__solicitudes
+                    ]:
+                        print("No hay viajes registrados para este usuario.\n")
                     input("Presione Enter para continuar...")
 
                 elif opcion_usuario == "4":
                     # Mostrar Viajes
+                    if nombre_usuario not in [
+                        solicitud.obtener_nombre_usuario()
+                        for solicitud in self.__solicitudes
+                    ]:
+                        print("Actualmente no tienes viajes.\n")
                     for solicitud in self.__solicitudes:
                         if solicitud.obtener_nombre_usuario() == nombre_usuario:
                             print("\n")
                             print("*" * 50)
                             print("\tUsuario ~ " + solicitud.obtener_nombre_usuario())
-                            print("\tOrigen ~ " + solicitud.origen)
-                            print("\tDestino ~ " + solicitud.destino)
+                            print(
+                                "  Origen ~ "
+                                + solicitud.origen
+                                + "  =>"
+                                + "\tDestino ~ "
+                                + solicitud.destino
+                            )
                             print("*" * 50, "\n")
                     input("Presione Enter para continuar...")
                 elif opcion_usuario == "5":
@@ -115,14 +132,16 @@ class SistemaTaxi:
 
                 elif opcion_chofer == "2":
                     for chofer in self.__choferes:
-                        if chofer.identificacion == nombre_chofer:
-                            chofer.estado = chofer.cambiar_estado()
+                        if chofer.nombre == nombre_chofer:
+                            chofer.cambiar_estado()
                             print(
-                                f"{nombre_chofer}(#) Su estado ha sido cambiado a: {chofer.estado}"
+                                f"{nombre_chofer} (#) Su estado ha sido cambiado a: {chofer.estado}"
                             )
                             input("Presione Enter para continuar...")
                             break
                 elif opcion_chofer == "3":
+                    if not self.__solicitudes:
+                        print("\tNo hay solicitudes de viaje pendientes.\n\n")
                     for i, solicitud in enumerate(self.__solicitudes):
                         print(
                             f"{i+1}. {solicitud.origen} - {solicitud.destino} - {solicitud.obtener_nombre_usuario()}"
@@ -151,15 +170,19 @@ class SistemaTaxi:
             if opcion_administrador == "1":
                 print("\nChoferes Disponibles")
                 print("-" * 50)
-                for i, chofer in enumerate(self.__choferes):
+                contador = 1
+                for chofer in self.__choferes:
                     if chofer.estado == "Disponible":
-                        print(f"*\t{i+1}. {chofer.nombre} - {chofer.estado} \t*")
+                        print(f"*\t{contador}. {chofer.nombre} - {chofer.estado} \t*")
+                        contador += 1
                 print("-" * 50)
                 print("\nChoferes No Disponibles")
                 print("-" * 50)
-                for i, chofer in enumerate(self.__choferes):
+                contador = 1
+                for chofer in self.__choferes:
                     if chofer.estado == "Ocupado":
-                        print(f"*\t{i+1}. {chofer.nombre} - {chofer.estado} \t*")
+                        print(f"*\t{contador}. {chofer.nombre} - {chofer.estado} \t*")
+                        contador += 1
                 print("-" * 50)
                 input("\nPresione Enter para continuar...")
 
