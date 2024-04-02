@@ -233,10 +233,12 @@ class SistemaTaxiQueue:
                             current = self.__choferes_disponibles.front
                             contador = 1
                             while current:
-                                print(f"{contador}. {current.data.nombre} - Disponible")
+                                print(
+                                    f"\t* {contador}. {current.data.nombre if current.data.identificacion != identificacion_chofer else current.data.nombre + ' (Tú)'} ♫ {current.data.identificacion} - Disponible"
+                                )
                                 current = current.next
                                 contador += 1
-                            input("Presione Enter para continuar...")
+                            input("\n\nPresione Enter para continuar...")
                         else:
                             print("No hay choferes disponibles.\n")
                             input("Presione Enter para continuar...")
