@@ -195,6 +195,7 @@ class SistemaTaxiQueue:
                                 )
                                 current = current.next
                                 contador += 1
+                                print("\n")
                             # luego preguntamos cual desea aceptar
                             numero_solicitud = int(
                                 input(
