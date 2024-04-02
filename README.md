@@ -16,7 +16,10 @@
 # Ejecucion
 
 - `cd PROYECTO PRIMER PARCIAL`
-- ```python main.py```
+
+```
+python main.py
+```
 
 # Descripcion
 
