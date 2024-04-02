@@ -47,14 +47,21 @@ class Queue:
             current = current.next
         print("None")
 
-    def find(self, target):
-        # Recorre la cola para encontrar el elemento target
-        current = self.front
-        while current:
-            if current.data == target:
-                return True  # Elemento encontrado
-            current = current.next
-        return False  # Elemento no encontrado
+    def find(self, target, current=None):
+        # Si no se proporciona un nodo actual, empezamos desde el frente
+        if current is None:
+            current = self.front
+
+        # Si llegamos al final de la cola sin encontrar el elemento
+        if current is None:
+            return False
+
+        # Si el elemento actual es el objetivo, lo encontramos
+        if current.data == target:
+            return True
+
+        # Llama recursivamente a la función para el siguiente nodo
+        return self.find_recursive(target, current.next)
 
     def find_position(self, target):
         # Encuentra la posición del elemento en la cola
