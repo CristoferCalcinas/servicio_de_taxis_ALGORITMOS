@@ -3,7 +3,7 @@ from cola import Queue
 from menus import Menu
 from semillaQueue import QueueSemilla
 from usuario import Usuario
-from viaje import Viaje
+from viaje import Viaje, Viaje_Chofer
 
 
 class SistemaTaxiQueue:
@@ -211,23 +211,48 @@ class SistemaTaxiQueue:
                                     )
                                 )
                             # si el numero de solicitud es valido entonces lo aceptamos y modificamos el estado del chofer ademas que te tenemos que actualizar el queue de solicitudes y agregar el viaje a la lista de viajes realizados
-                            nuevo_viaje = self.__solicitudes.remove_at_position(
-                                numero_solicitud
-                            )
-                            self.__viajes_realizados.enqueue(nuevo_viaje)
-                            # esta parte esta mal, puedo ver que no funciona pero lo arreglo mas tarde
-                            if self.__choferes_no_disponibles.find(
-                                identificacion_chofer
-                            ):
-                                self.__choferes_no_disponibles.dequeue()
-                                self.__choferes_disponibles.enqueue(
-                                    identificacion_chofer
+                            nuevo_viaje = (
+                                self.__solicitudes.remove_and_return_at_position(
+                                    numero_solicitud
                                 )
-                            print(
-                                f"Viaje aceptado con éxito por {identificacion_chofer}"
                             )
+                            viaje_con_chofer = Viaje_Chofer(
+                                nuevo_viaje,
+                                self.__choferes_disponibles.find_chofer(
+                                    identificacion_chofer
+                                ),
+                            )
+                            self.__viajes_realizados.enqueue(viaje_con_chofer)
+                            # una vez añadido el viaje y el chofer a la lista de viajes realizados, entonces tenemos que cambiar el estado del chofer, aca tendriamos que validar si el chofer esta disponible, si no esta disponible, tenemos que denegar el acceso a aceptar una solicitud, para lo cual la validacion deberia ser antes de mostrar las solicitudes, esa implementacion la hare despues pero ahora debemos cambiar el estado del chofer
+                            chofer = self.__choferes_disponibles.find_chofer(
+                                identificacion_chofer
+                            )
+                            chofer.cambiar_estado()
+                            self.__choferes_no_disponibles.enqueue(chofer)
+                            nueva_lista_choferes_disponibles = Queue()
+                            current = self.__choferes_disponibles.front
+                            while current:
+                                if current.data.identificacion != identificacion_chofer:
+                                    nueva_lista_choferes_disponibles.enqueue(
+                                        current.data
+                                    )
+                                current = current.next
+                            self.__choferes_disponibles = (
+                                nueva_lista_choferes_disponibles
+                            )
+                            # como ya tenemos al chofer en la lista de choferes no disponibles, entonces tenemos que eliminarlo de la lista de choferes disponibles
+                            print(
+                                chofer.nombre
+                                + " - "
+                                + str(chofer.identificacion)
+                                + "\t"
+                                + nuevo_viaje.origen
+                                + " - "
+                                + nuevo_viaje.destino
+                                + "\n\t\tEstado cambiado a No Disponible."
+                            )
+                            print("Solicitud aceptada con éxito.\n")
                             input("Presione Enter para continuar...")
-
                     elif opcion_chofer == "4":
                         # Ver Choferes Disponibles
                         if not self.__choferes_disponibles.is_empty():

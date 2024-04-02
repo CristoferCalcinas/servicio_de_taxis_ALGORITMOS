@@ -138,6 +138,39 @@ class Queue:
         popped_data = current.data
         return popped_data
 
+    # el metodo remove_at_position no funciona como se espera, lo que se espera es que dado una posicion enviada por parametro esta sirva para eliminar el nodo en esa posicion ademas de que tendria que devolver el nodo eliminado
+    # segun lo que se me viene a la mente, es crear una nueva cola, en una nueva variable, pero que esta nueva cola no contenga el elemento a elinar, para posteriormente asignar la nueva cola a la cola original y devolver el nodo eliminado
+    def remove_and_return_at_position(self, position):
+        if self.is_empty() or position < 0:
+            return None
+
+        if position == 0:
+            return self.dequeue()
+
+        new_queue = Queue()
+        current = self.front
+        prev = None
+        index = 1
+        element_deleted = None
+
+        while current:
+            if index == position:
+                element_deleted = current.data
+                if prev:
+                    prev.next = current.next
+                    if not current.next:
+                        self.rear = prev
+                else:
+                    self.front = current.next
+                    if not current.next:
+                        self.rear = None
+                break
+            prev = current
+            current = current.next
+            index += 1
+
+        return element_deleted
+
     def verify_identification_chofer(self, identification_chofer):
         # Recorre la cola para encontrar el elemento target
         current = self.front
