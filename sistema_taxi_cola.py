@@ -24,9 +24,9 @@ class SistemaTaxiQueue:
     def ingresar_como_usuario(self):
         while True:
             nombre_usuario = input("Ingrese su nombre para continuar\n=>\t")
-            if self.__solicitudes.find(nombre_usuario):
+            if self.__solicitudes.find_user_for_viaje(nombre_usuario):
                 print(
-                    f"\n\t\tSu Ppsición en la cola: {self.__solicitudes.find_position(nombre_usuario)}"
+                    f"\n\t\tSu Posición en la cola de solicitudes de viaje: {self.__solicitudes.find_position_user_for_viaje(nombre_usuario)}\n"
                 )
                 print("Ya tiene una solicitud de viaje pendiente.\n")
                 input("Presione Enter para continuar...")
@@ -59,22 +59,21 @@ class SistemaTaxiQueue:
                         return
                 elif opcion_usuario == "3":
                     # Registro de Viajes de un Usuario
-                    if not self.__usuarios.find(nombre_usuario):
+                    if not self.__usuarios.find_user(nombre_usuario):
                         print("No hay viajes registrados para este usuario.\n")
                     else:
                         print(
-                            f"Usuario: {nombre_usuario} - Posición en la cola: {self.__usuarios.find_position(nombre_usuario)}"
+                            f"\n\tUsuario: {nombre_usuario} - Posición en la cola de Usuarios: {self.__usuarios.find_position_user(nombre_usuario)}\n"
                         )
                     input("Presione Enter para continuar...")
                 elif opcion_usuario == "4":
                     # Mostrar Viajes
-                    if not self.__solicitudes.find(nombre_usuario):
+                    if not self.__solicitudes.find_user_for_viaje(nombre_usuario):
                         print("Actualmente no tienes viajes.\n")
                     else:
                         current = self.__solicitudes.front
                         while current:
                             if current.data.usuario.nombre == nombre_usuario:
-                                print("\n")
                                 print("*" * 50)
                                 print(
                                     "\tUsuario ~ "

@@ -67,6 +67,46 @@ class Queue:
             index += 1
         return -1  # Devuelve -1 si el elemento no se encuentra
 
+    def find_user_for_viaje(self, target):
+        # Recorre la cola para encontrar el elemento target
+        current = self.front
+        while current:
+            if current.data.usuario.nombre == target:
+                return True  # Elemento encontrado
+            current = current.next
+        return False  # Elemento no encontrado
+
+    def find_position_user_for_viaje(self, target):
+        # Encuentra la posición del elemento en la cola
+        current = self.front
+        index = 1
+        while current:
+            if current.data.usuario.nombre == target:
+                return index
+            current = current.next
+            index += 1
+        return -1  # Devuelve -1 si el elemento no se encuentra
+
+    def find_user(self, target):
+        # Recorre la cola para encontrar el elemento target
+        current = self.front
+        while current:
+            if current.data.nombre == target:
+                return True  # Elemento encontrado
+            current = current.next
+        return False  # Elemento no encontrado
+
+    def find_position_user(self, target):
+        # Encuentra la posición del elemento en la cola
+        current = self.front
+        index = 1
+        while current:
+            if current.data.nombre == target:
+                return index
+            current = current.next
+            index += 1
+        return -1  # Devuelve -1 si el elemento no se encuentra
+
     def remove_at_position(self, position):
         if self.is_empty() or position < 0:
             return None  # No se puede eliminar si la cola está vacía o la posición es inválida
