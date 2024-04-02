@@ -269,3 +269,23 @@ class SistemaTaxiQueue:
             else:
                 print("La opción ingresada no es válida.")
                 input("Presione Enter para continuar...")
+
+
+if __name__ == "__main__":
+    sistema = SistemaTaxiQueue()
+    menu = Menu()
+    while True:
+        opcion = menu.menu_inicial()
+        if opcion == "1":
+            sistema.ingresar_como_usuario()
+        elif opcion == "2":
+            sistema.ingresar_como_chofer()
+        elif opcion == "3":
+            sistema.ingresar_como_administrador()
+        elif opcion == "4":
+            break
+        else:
+            print("La opción ingresada no es válida.")
+            continue
+    print("Gracias por usar nuestro sistema de taxi.")
+    exit()

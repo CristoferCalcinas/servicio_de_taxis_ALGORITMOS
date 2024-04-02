@@ -17,7 +17,7 @@ class QueueSemilla:
         usuarios.enqueue(cuarto_usuario)
         return usuarios
 
-    def cargar_choferes_disponibles_queue(self):
+    def cargar_choferes_no_disponibles_queue(self):
         primer_chofer = Chofer("Pablo", 5200)
         primer_chofer.cambiar_estado()
         segundo_chofer = Chofer("Martin", 7880)
@@ -27,7 +27,7 @@ class QueueSemilla:
         choferes.enqueue(segundo_chofer)
         return choferes
 
-    def cargar_choferes_no_disponibles_queue(self):
+    def cargar_choferes_disponibles_queue(self):
         primer_chofer = Chofer("Carlos", 4545)
         segundo_chofer = Chofer("Lucas", 1000)
         tercer_chofer = Chofer("Mateo", 2020)
