@@ -137,3 +137,7 @@ class Queue:
         # Devuelve el dato del nodo eliminado
         popped_data = current.data
         return popped_data
+
+    def verify_identification_chofer(self, identification_chofer):
+        # Recorre la cola para encontrar el elemento target
+        pass

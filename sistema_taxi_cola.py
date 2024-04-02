@@ -223,7 +223,7 @@ class SistemaTaxiQueue:
                 contador = 1
                 current = self.__choferes_disponibles.front
                 while current:
-                    print(f"{contador}. {current.data} - Disponible")
+                    print(f"{contador}. {current.data.nombre} ♫ {current.data.identificacion} - Disponible")
                     current = current.next
                     contador += 1
                 print("-" * 50)
@@ -232,7 +232,7 @@ class SistemaTaxiQueue:
                 contador = 1
                 current = self.__choferes_no_disponibles.front
                 while current:
-                    print(f"{contador}. {current.data} - No Disponible")
+                    print(f"{contador}. {current.data.nombre} ♫{current.data.identificacion} - No Disponible")
                     current = current.next
                     contador += 1
                 print("-" * 50)
