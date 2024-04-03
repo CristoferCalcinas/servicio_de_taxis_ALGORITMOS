@@ -178,13 +178,7 @@ class SistemaTaxiQueue:
                             input("Presione Enter para continuar...")
 
                     elif opcion_chofer == "3":
-                        # Aceptar/Rechazr Solicitud
-                        # reprogramar con la logica desde cero
-                        # tenemos un queue de solicitudes
-                        # tenemos el estado del chofer
-                        # lo ideal es imprimir primero todas las solicitudes
-                        # luego preguntar el numero de la solicitud que desea aceptar
-                        # en realidad si esta disponible solo deberia aceptar, pero si esta ocupado solo deberia rechazar, tal vez ahora el metodo no cambie el estado del chofer, pero pensemos que si lo hace, entonces como primer paso tenemos que mostrar todas las solicitudes
+                        # Aceptar Solicitud
                         if not self.__solicitudes.is_empty():
                             # si no esta vacio imprimimos las solicitudes
                             current = self.__solicitudes.front
@@ -223,7 +217,6 @@ class SistemaTaxiQueue:
                                 ),
                             )
                             self.__viajes_realizados.enqueue(viaje_con_chofer)
-                            # una vez añadido el viaje y el chofer a la lista de viajes realizados, entonces tenemos que cambiar el estado del chofer, aca tendriamos que validar si el chofer esta disponible, si no esta disponible, tenemos que denegar el acceso a aceptar una solicitud, para lo cual la validacion deberia ser antes de mostrar las solicitudes, esa implementacion la hare despues pero ahora debemos cambiar el estado del chofer
                             chofer = self.__choferes_disponibles.find_chofer(
                                 identificacion_chofer
                             )
@@ -252,6 +245,9 @@ class SistemaTaxiQueue:
                                 + "\n\t\tEstado cambiado a No Disponible."
                             )
                             print("Solicitud aceptada con éxito.\n")
+                            input("Presione Enter para continuar...")
+                        else:
+                            print("No hay solicitudes de viaje pendientes.\n")
                             input("Presione Enter para continuar...")
                     elif opcion_chofer == "4":
                         # Ver Choferes Disponibles

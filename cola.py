@@ -47,6 +47,8 @@ class Queue:
             current = current.next
         print("None")
 
+# ----------------------------------------------------------------------        
+
     def find(self, target, current=None):
         # Si no se proporciona un nodo actual, empezamos desde el frente
         if current is None:
@@ -145,8 +147,6 @@ class Queue:
         popped_data = current.data
         return popped_data
 
-    # el metodo remove_at_position no funciona como se espera, lo que se espera es que dado una posicion enviada por parametro esta sirva para eliminar el nodo en esa posicion ademas de que tendria que devolver el nodo eliminado
-    # segun lo que se me viene a la mente, es crear una nueva cola, en una nueva variable, pero que esta nueva cola no contenga el elemento a elinar, para posteriormente asignar la nueva cola a la cola original y devolver el nodo eliminado
     def remove_and_return_at_position(self, position):
         if self.is_empty() or position < 0:
             return None
