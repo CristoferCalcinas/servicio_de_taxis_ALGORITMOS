@@ -280,7 +280,7 @@ class SistemaTaxiQueue:
         while True:
             opcion_administrador = Menu().obtener_opcion_menu_administrador()
             print("\n\n")
-            while opcion_administrador not in ["1", "2", "3", "4"]:
+            while opcion_administrador not in ["1", "2", "3", "4", "5"]:
                 print("La opción ingresada no es válida.")
                 opcion_administrador = Menu().obtener_opcion_menu_administrador()
             if opcion_administrador == "1":
@@ -335,8 +335,16 @@ class SistemaTaxiQueue:
                     contador += 1
                 input("\nPresione Enter para continuar...")
             elif opcion_administrador == "4":
+                # Ver los viajes
+                if not self.__viajes_realizados.is_empty():
+                    self.__viajes_realizados.show_all_trips()
+                    input("Presione Enter para continuar...")
+                else:
+                    print("\t\tNo hay viajes realizados.\n")
+                    input("Presione Enter para continuar...")
+
+            elif opcion_administrador == "5":
                 return
             else:
                 print("La opción ingresada no es válida.")
                 input("Presione Enter para continuar...")
-

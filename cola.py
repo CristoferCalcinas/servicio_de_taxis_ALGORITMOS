@@ -195,3 +195,31 @@ class Queue:
                 return current.data  # Elemento encontrado
             current = current.next
         return None
+
+    def show_all_trips(self):
+        # este metodo es especial para los viajes, lo que hara es que teniendo una cola de viajes, pero esa cola es especial, porque es de tipo Viaje_Chofer, lo que quiere decir que la cola tendria lo siguiente:
+        # def __init__(self, viaje: Viaje, chofer: Chofer):
+        # self.viaje: Viaje = viaje
+        # self.chofer: Chofer = chofer
+        # ahora lo que tenemos que saber es que la cola tiene como dato todo ese objeto, que te dipo Viaje_Chofer, entonces lo que se espera es que se muestre todos los datos del viaje y del chofer, tomar en cuenta que se itera sobre la cola, entonces tambien aparte de mostrar los elementos de la cola, se tiene que mostrar el numero de iteracion
+
+        # validar que la cola no este vacia
+        if self.is_empty():
+            print("No hay viajes registrados")
+            return
+
+        # iterar sobre la cola
+        current = self.front
+        index = 1
+        while current:
+            print()
+            print("^" * 50)
+            print(f"Viaje {index}:")
+            print(f"Origen: {current.data.viaje.origen}")
+            print(f"Destino: {current.data.viaje.destino}")
+            print(f"Usuario: {current.data.obtener_nombre_usuario()}")
+            print(f"Chofer: {current.data.obtener_nombre_chofer()}")
+            print("^" * 50)
+            print()
+            current = current.next
+            index += 1

@@ -81,7 +81,8 @@ class Menu:
             "  1. Cola de Choferes",
             "  2. Solicitudes de Viajes",
             "  3. Historial de Usuarios",
-            "  4. Salir",
+            "  4. Ver los Viajes",
+            "  5. Salir",
         ]
         os.system("cls" if os.name == "nt" else "clear")
         self.draw_menu(opciones, "Menú Administrador")
