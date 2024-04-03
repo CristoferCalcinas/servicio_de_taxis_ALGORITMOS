@@ -41,7 +41,6 @@ class Menu:
         opciones = [
             "  1. Solicitar un Viaje",
             "  2. Cancelar Viaje",
-            # "  3. Registro de Viajes", deberiamos iterar sobre '__viajes_realizados' para mostrar los viajes realizados
             "  3. Registro de Usuario",
             "  4. Mostrar Viaje",
             "  5. Salir",
@@ -49,13 +48,14 @@ class Menu:
         os.system("cls" if os.name == "nt" else "clear")
         self.draw_menu(opciones, "Menú Usuario")
 
-        opcion_elegida = input("\nIngrese el número de la opción deseada: ")
+        opcion_elegida = 0
+        while True:
+            opcion_elegida = input("\nIngrese el número de la opción deseada: ")
 
-        if opcion_elegida and len(opciones) >= int(opcion_elegida) > 0:
-            return opcion_elegida
-        else:
-            print("La opción ingresada no es válida.")
-            return None
+            if opcion_elegida.isdigit() and 0 < int(opcion_elegida) <= len(opciones):
+                return opcion_elegida
+            else:
+                print("La opción ingresada no es válida.")
 
     def obtener_opcion_menu_chofer(self):
         opciones = [
@@ -68,13 +68,14 @@ class Menu:
         os.system("cls" if os.name == "nt" else "clear")
         self.draw_menu(opciones, "Menú Chofer")
 
-        opcion_elegida = input("\nIngrese el número de la opción deseada: ")
+        opcion_elegida = 0
+        while True:
+            opcion_elegida = input("\nIngrese el número de la opción deseada: ")
 
-        if len(opciones) >= int(opcion_elegida) > 0:
-            return opcion_elegida
-        else:
-            print("La opción ingresada no es válida.")
-            return None
+            if opcion_elegida.isdigit() and 0 < int(opcion_elegida) <= len(opciones):
+                return opcion_elegida
+            else:
+                print("La opción ingresada no es válida.")
 
     def obtener_opcion_menu_administrador(self):
         opciones = [
@@ -87,10 +88,11 @@ class Menu:
         os.system("cls" if os.name == "nt" else "clear")
         self.draw_menu(opciones, "Menú Administrador")
 
-        opcion_elegida = input("\nIngrese el número de la opción deseada: ")
+        opcion_elegida = 0
+        while True:
+            opcion_elegida = input("\nIngrese el número de la opción deseada: ")
 
-        if len(opciones) >= int(opcion_elegida) > 0:
-            return opcion_elegida
-        else:
-            print("La opción ingresada no es válida.")
-            return None
+            if opcion_elegida.isdigit() and 0 < int(opcion_elegida) <= len(opciones):
+                return opcion_elegida
+            else:
+                print("La opción ingresada no es válida.")
