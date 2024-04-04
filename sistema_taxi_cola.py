@@ -245,7 +245,8 @@ class SistemaTaxiQueue:
                                 + "\n\t\tEstado cambiado a No Disponible."
                             )
                             print("Solicitud aceptada con éxito.\n")
-                            input("Presione Enter para continuar...")
+                            input("Presione Enter para salir y volver al panel...")
+                            return
                         else:
                             print("No hay solicitudes de viaje pendientes.\n")
                             input("Presione Enter para continuar...")
